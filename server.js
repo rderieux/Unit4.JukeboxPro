@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const PORT = 3000;
 
 app.use(require("morgan")("dev")); // Can use instead of the logging middleware below
