@@ -9,6 +9,7 @@ const seed = async (
   // TODO: Seed users
   const users = Array.from({ length: numUsers }, () => ({
     username: faker.internet.userName(),
+    password: faker.internet.password(),
   }));
   await prisma.user.createMany({ data: users });
 
