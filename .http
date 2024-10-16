@@ -1,4 +1,28 @@
 @host = http://localhost:3000
 
+### Register new user
+POST {{host}}/register
+Content-Type: application/json
+
+{
+    "username": "wobble@foo.com",
+    "password": "wobblefoo"
+}
+
+### Login user
+POST {{host}}/login
+Content-Type: application/json
+
+{
+    "username": "wobble@foo.com",
+    "password": "wobblefoo"
+}
+
 ### Get all tracks
 GET {{host}}/tracks
+
+### Get a track by id
+GET {{host}}/tracks/2
+
+### Get all playlists of user
+GET {{host}}/playlists

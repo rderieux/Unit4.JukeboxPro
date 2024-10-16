@@ -9,18 +9,18 @@ const prisma = new PrismaClient().$extends({
     user: {
       async register(username, password, saltRounds = 10) {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const customer = await prisma.customer.create({
-          data: { email: username, password: hashedPassword },
+        const user = await prisma.user.create({
+          data: { username, password: hashedPassword },
         });
-        return customer;
+        return user;
       },
       async login(username, password) {
-        const customer = await prisma.customer.findUniqueOrThrow({
+        const user = await prisma.user.findUniqueOrThrow({
           where: { username },
         });
-        const valid = await bcrypt.compare(password, customer.password);
+        const valid = await bcrypt.compare(password, user.password);
         if (!valid) throw Error("Invalid password");
-        return customer;
+        return user;
       },
     },
   },
