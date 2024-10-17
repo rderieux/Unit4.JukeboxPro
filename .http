@@ -25,9 +25,17 @@ GET {{host}}/tracks
 ### Get a track by id
 GET {{host}}/tracks/2
 
+### Get specific track as a user
+GET {{host}}/tracks/3
+Authorization: Bearer {{token}}
+
 ### Get all playlists of user
 @token = {{login.response.body.token}}
 GET {{host}}/playlists
+Authorization: Bearer {{token}}
+
+### Get playlist by id
+GET {{host}}playlists/17
 Authorization: Bearer {{token}}
 
 ### Post a playlist
@@ -40,3 +48,4 @@ Content-Type: application/json
     "description": "a;sldkjf;alskdjf",
     "trackIds": [2,8, 16]
 }
+

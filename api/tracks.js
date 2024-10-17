@@ -15,29 +15,16 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params;
+  const includePlaylists = req.user
+    ? { where: { ownerId: req.user.id } }
+    : false;
 
   try {
     const track = await prisma.track.findUniqueOrThrow({
       where: { id: +id },
+      include: { playlists: includePlaylists },
     });
-
-    let response = { track };
-
-    if (req.user) {
-      const userPlaylists = await prisma.playlist.findMany({
-        where: {
-          ownerId: req.user.id,
-          tracks: {
-            some: {
-              id: +id,
-            },
-          },
-        },
-      });
-
-      reponse.userPlaylists = userPlaylists;
-    }
-    res.json(response);
+    res.json(track);
   } catch (error) {
     next(error);
   }
